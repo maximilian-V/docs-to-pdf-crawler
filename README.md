@@ -75,61 +75,29 @@ node docs-crawler.js --url https://docs.example.com --wait 2000
 | `--selector` | `-s` | CSS selector for main content | `main, article, .content, .documentation, body` |
 | `--wait` | `-w` | Wait time between requests (ms) | 1000 |
 
-### Quick Scripts
-
-#### Generate Essential Klaviyo Documentation
-For a curated set of the most important Klaviyo documentation pages:
-
-```bash
-node generate-klaviyo-main-docs.js
-```
-
-This generates a ~5MB PDF with 20 essential pages including:
-- Getting started guides
-- Core API concepts
-- Main API reference overviews
-
-#### Merge Existing PDFs
-If crawling was interrupted, merge whatever PDFs were generated:
-
-```bash
-node generate-klaviyo-quick.js
-```
-
-### Legacy Scripts
-
-The original scripts are still available:
-
-```bash
-# Crawl ALL Klaviyo documentation (comprehensive but slow)
-node generate-klaviyo-docs.js
-
-# Generate PDFs for specific hardcoded pages
-node generate-pdf.js
-```
-
 ## How It Works
 
-The crawler uses:
-- **Puppeteer** for headless browser automation
-- **pdf-lib** for merging PDFs
-- **yargs** for command-line argument parsing
-- Custom CSS injection to hide navigation elements and optimize content for PDF
-
-## Script Comparison
-
-| Script | Purpose | Speed | Output Size | Customization |
-|--------|---------|-------|-------------|---------------|
-| `docs-crawler.js` | Any documentation site | Variable | Variable | Full CLI options |
-| `generate-klaviyo-main-docs.js` | Essential Klaviyo docs | Fast (~2 min) | ~5MB | Curated pages |
-| `generate-klaviyo-docs.js` | Complete Klaviyo docs | Slow | Large | Hardcoded for Klaviyo |
-| `generate-pdf.js` | Specific pages only | Fast | Small | Edit URLs in code |
+The crawler:
+1. Starts from the provided URL
+2. Discovers all linked pages within the same domain
+3. Respects the configured depth limit
+4. Applies include/exclude patterns to filter URLs
+5. Generates individual PDFs with custom CSS for better rendering
+6. Merges all PDFs into a single document with a table of contents
+7. Cleans up temporary files
 
 ## Output
 
 - Individual PDFs are temporarily stored in `temp-pdfs/`
-- Final merged PDF is saved as `klaviyo-complete-documentation.pdf`
-- All temporary files are automatically cleaned up after merging
+- Final merged PDF is saved with the specified filename
+- All temporary files are automatically cleaned up
+
+## Use Cases
+
+- **Offline Documentation**: Create PDF versions of online documentation
+- **AI Context**: Generate comprehensive documentation PDFs for use with AI assistants like Claude
+- **Archiving**: Preserve documentation at a specific point in time
+- **Sharing**: Distribute documentation to team members without internet access
 
 ## Requirements
 
