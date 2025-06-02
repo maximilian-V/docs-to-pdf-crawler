@@ -1,0 +1,25 @@
+# Node modules
+node_modules/
+
+# Generated PDFs
+*.pdf
+
+# Temporary files
+temp-pdfs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.production
