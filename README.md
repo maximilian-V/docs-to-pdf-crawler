@@ -75,15 +75,36 @@ node docs-crawler.js --url https://docs.example.com --wait 2000
 | `--selector` | `-s` | CSS selector for main content | `main, article, .content, .documentation, body` |
 | `--wait` | `-w` | Wait time between requests (ms) | 1000 |
 
-### Legacy Scripts
+### Quick Scripts
 
-The original Klaviyo-specific scripts are still available:
+#### Generate Essential Klaviyo Documentation
+For a curated set of the most important Klaviyo documentation pages:
 
 ```bash
-# Crawl all Klaviyo documentation
+node generate-klaviyo-main-docs.js
+```
+
+This generates a ~5MB PDF with 20 essential pages including:
+- Getting started guides
+- Core API concepts
+- Main API reference overviews
+
+#### Merge Existing PDFs
+If crawling was interrupted, merge whatever PDFs were generated:
+
+```bash
+node generate-klaviyo-quick.js
+```
+
+### Legacy Scripts
+
+The original scripts are still available:
+
+```bash
+# Crawl ALL Klaviyo documentation (comprehensive but slow)
 node generate-klaviyo-docs.js
 
-# Generate PDFs for specific pages
+# Generate PDFs for specific hardcoded pages
 node generate-pdf.js
 ```
 
@@ -92,14 +113,17 @@ node generate-pdf.js
 The crawler uses:
 - **Puppeteer** for headless browser automation
 - **pdf-lib** for merging PDFs
+- **yargs** for command-line argument parsing
 - Custom CSS injection to hide navigation elements and optimize content for PDF
 
-## Configuration
+## Script Comparison
 
-The main crawler (`generate-klaviyo-docs.js`) can be configured by modifying:
-- `baseUrl`: The base URL of the documentation site
-- Starting URLs in the `init()` method
-- URL filtering logic in the `crawlAndGeneratePDFs()` method
+| Script | Purpose | Speed | Output Size | Customization |
+|--------|---------|-------|-------------|---------------|
+| `docs-crawler.js` | Any documentation site | Variable | Variable | Full CLI options |
+| `generate-klaviyo-main-docs.js` | Essential Klaviyo docs | Fast (~2 min) | ~5MB | Curated pages |
+| `generate-klaviyo-docs.js` | Complete Klaviyo docs | Slow | Large | Hardcoded for Klaviyo |
+| `generate-pdf.js` | Specific pages only | Fast | Small | Edit URLs in code |
 
 ## Output
 

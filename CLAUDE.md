@@ -16,18 +16,28 @@ This is a Klaviyo documentation PDF generator that uses Puppeteer to convert Kla
   - Rate limiting with configurable wait times
   - Works with any documentation website
 
-- **generate-klaviyo-docs.js**: Klaviyo-specific documentation crawler
-  - Automatically discovers all Klaviyo documentation pages
-  - Crawls through docs and reference sections
+- **generate-klaviyo-main-docs.js**: Fast, curated Klaviyo documentation generator
+  - Generates PDFs for 20 essential Klaviyo documentation pages
+  - Includes getting started, core concepts, and main API references
+  - Produces a ~5MB PDF in about 2 minutes
+  - Better wait handling for dynamic content loading
+  - Page numbers in PDF footers
+
+- **generate-klaviyo-quick.js**: PDF merger utility
+  - Merges any existing PDFs in the temp-pdfs directory
+  - Useful for salvaging work if crawling is interrupted
+  - Adds a title page with generation date and page count
+
+- **generate-klaviyo-docs.js**: Comprehensive Klaviyo documentation crawler
+  - Attempts to discover ALL Klaviyo documentation pages
+  - Can take a long time and may timeout on large sites
   - Generates individual PDFs for each page
   - Merges all PDFs into a single comprehensive document
-  - Includes custom CSS for better PDF rendering
-  - Adds section separators and title page
 
 - **generate-pdf.js**: Simple script that converts specific web pages to PDFs
-  - Uses `puppeteer.launch()` to create a browser instance
-  - Navigates to URLs and generates PDFs with A4 format
-  - Currently configured to convert Klaviyo API documentation pages
+  - Uses hardcoded URL list
+  - Quick for generating PDFs of specific pages
+  - Edit the `urls` array to customize
 
 ## Common Commands
 
@@ -40,9 +50,19 @@ node docs-crawler.js --url https://docs.example.com
 node docs-crawler.js --url https://docs.example.com --depth 3 --output my-docs.pdf
 ```
 
-### Run the Klaviyo documentation crawler
+### Generate essential Klaviyo documentation (recommended)
+```bash
+node generate-klaviyo-main-docs.js
+```
+
+### Run the comprehensive Klaviyo crawler
 ```bash
 node generate-klaviyo-docs.js
+```
+
+### Merge existing PDFs
+```bash
+node generate-klaviyo-quick.js
 ```
 
 ### Run the simple PDF generator

@@ -6,6 +6,7 @@ node_modules/
 
 # Temporary files
 temp-pdfs/
+klaviyo-pdfs/
 
 # OS files
 .DS_Store
