@@ -1,13 +1,15 @@
 # Docs to PDF Crawler
 
-A Node.js tool that crawls documentation websites and generates comprehensive PDF files. Currently configured for Klaviyo API documentation but can be adapted for other documentation sites.
+A flexible Node.js tool that crawls any documentation website and generates comprehensive PDF files. Perfect for creating offline documentation, archiving, or using as context for AI tools like Claude.
 
 ## Features
 
-- 🕷️ Automatic discovery of all documentation pages
+- 🕷️ Automatic discovery and crawling of documentation pages
+- 🎯 Dynamic domain support - works with any documentation site
 - 📄 Individual PDF generation for each page
 - 📚 Merges all PDFs into a single comprehensive document
 - 🎨 Custom CSS for optimized PDF rendering
+- 🔧 Configurable crawl depth, patterns, and selectors
 - 🧹 Automatic cleanup of temporary files
 
 ## Installation
@@ -18,29 +20,72 @@ npm install
 
 ## Usage
 
-### Generate Complete Documentation PDF
-
-To crawl and generate a complete PDF of all Klaviyo documentation:
+### Basic Usage
 
 ```bash
-node generate-klaviyo-docs.js
+node docs-crawler.js --url <documentation-url>
 ```
 
-This will:
-1. Start from the main documentation page
-2. Discover all linked documentation pages
-3. Generate individual PDFs for each page
-4. Merge all PDFs into `klaviyo-complete-documentation.pdf`
+### Examples
 
-### Generate Specific Pages
+#### Crawl any documentation site:
+```bash
+node docs-crawler.js --url https://docs.example.com
+```
 
-To generate PDFs for specific pages only:
+#### Specify output filename:
+```bash
+node docs-crawler.js --url https://docs.example.com --output my-docs.pdf
+```
+
+#### Limit crawl depth:
+```bash
+node docs-crawler.js --url https://docs.example.com --depth 3
+```
+
+#### Include only specific sections:
+```bash
+node docs-crawler.js --url https://docs.example.com --include /api/ /reference/
+```
+
+#### Exclude certain sections:
+```bash
+node docs-crawler.js --url https://docs.example.com --exclude /blog/ /changelog/
+```
+
+#### Custom content selector:
+```bash
+node docs-crawler.js --url https://docs.example.com --selector "article.documentation"
+```
+
+#### Adjust request delay:
+```bash
+node docs-crawler.js --url https://docs.example.com --wait 2000
+```
+
+### Command Line Options
+
+| Option | Alias | Description | Default |
+|--------|-------|-------------|---------|
+| `--url` | `-u` | Starting URL to crawl (required) | - |
+| `--output` | `-o` | Output PDF filename | `<domain>-documentation.pdf` |
+| `--depth` | `-d` | Maximum crawl depth | 5 |
+| `--include` | `-i` | URL patterns to include (can be repeated) | [] |
+| `--exclude` | `-e` | URL patterns to exclude (can be repeated) | [] |
+| `--selector` | `-s` | CSS selector for main content | `main, article, .content, .documentation, body` |
+| `--wait` | `-w` | Wait time between requests (ms) | 1000 |
+
+### Legacy Scripts
+
+The original Klaviyo-specific scripts are still available:
 
 ```bash
+# Crawl all Klaviyo documentation
+node generate-klaviyo-docs.js
+
+# Generate PDFs for specific pages
 node generate-pdf.js
 ```
-
-Edit the `urls` array in `generate-pdf.js` to specify which pages to convert.
 
 ## How It Works
 

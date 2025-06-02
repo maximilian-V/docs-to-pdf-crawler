@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "pdf-lib": "^1.17.1",
-    "puppeteer": "^24.9.0"
+    "puppeteer": "^24.9.0",
+    "yargs": "^18.0.0"
   }
 }

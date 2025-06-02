@@ -8,7 +8,15 @@ This is a Klaviyo documentation PDF generator that uses Puppeteer to convert Kla
 
 ## Key Components
 
-- **generate-klaviyo-docs.js**: Complete documentation crawler and PDF generator
+- **docs-crawler.js**: Flexible documentation crawler for any website
+  - Accepts command-line arguments for dynamic configuration
+  - Supports custom URL patterns (include/exclude)
+  - Configurable crawl depth and content selectors
+  - Automatic domain detection and output naming
+  - Rate limiting with configurable wait times
+  - Works with any documentation website
+
+- **generate-klaviyo-docs.js**: Klaviyo-specific documentation crawler
   - Automatically discovers all Klaviyo documentation pages
   - Crawls through docs and reference sections
   - Generates individual PDFs for each page
@@ -23,7 +31,16 @@ This is a Klaviyo documentation PDF generator that uses Puppeteer to convert Kla
 
 ## Common Commands
 
-### Run the complete documentation crawler
+### Run the flexible documentation crawler
+```bash
+# Basic usage
+node docs-crawler.js --url https://docs.example.com
+
+# With options
+node docs-crawler.js --url https://docs.example.com --depth 3 --output my-docs.pdf
+```
+
+### Run the Klaviyo documentation crawler
 ```bash
 node generate-klaviyo-docs.js
 ```
