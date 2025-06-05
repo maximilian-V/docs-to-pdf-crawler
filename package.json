@@ -1,0 +1,17 @@
+{
+  "name": "docs-to-pdf",
+  "version": "1.0.0",
+  "main": "docs-crawler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["documentation", "pdf", "crawler", "scraper", "puppeteer", "docs"],
+  "author": "",
+  "license": "MIT",
+  "description": "A flexible documentation crawler that converts any website's documentation into a comprehensive PDF file",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.9.0",
+    "yargs": "^18.0.0"
+  }
+}
